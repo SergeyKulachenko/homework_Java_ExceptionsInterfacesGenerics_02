@@ -6,7 +6,7 @@ import repository.Repository;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class Menager {
+public class Manager {
     Repository repositoryM = new Repository();
 
     public void save(Ticket tiket) {
@@ -17,7 +17,7 @@ public class Menager {
         Ticket[] result = new Ticket[0];
         for (Ticket tik : repositoryM.findAll()) {
             Ticket[] temp = new Ticket[result.length + 1];
-            if (to == tik.getAirportTo() || from == tik.getAirportFrom()) {
+            if (tik.getAirportFrom().equals(from) || tik.getAirportTo().equals(to)) {
                 System.arraycopy(result, 0, temp, 0, result.length);
                 temp[temp.length - 1] = tik;
                 result = temp;
@@ -27,11 +27,11 @@ public class Menager {
         return result;
     }
 
-    public Ticket[] findAll(String from, String to, Comparator<Ticket> comparator) {
+    public Ticket[] findAll(String from, String to, Comparator<Ticket> comparator ){
         Ticket[] result = new Ticket[0];
         for (Ticket tik : repositoryM.findAll()) {
             Ticket[] temp = new Ticket[result.length + 1];
-            if (to == tik.getAirportTo() || from == tik.getAirportFrom()) {
+            if (tik.getAirportFrom().equals(from) || tik.getAirportTo().equals(to)) {
                 System.arraycopy(result, 0, temp, 0, result.length);
                 temp[temp.length - 1] = tik;
                 result = temp;

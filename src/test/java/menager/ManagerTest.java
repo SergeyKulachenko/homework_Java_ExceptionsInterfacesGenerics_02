@@ -8,8 +8,8 @@ import java.util.Comparator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MenagerTest {
-    private Menager menager = new Menager();
+class ManagerTest {
+    private Manager manager = new Manager();
     private Ticket tik1 = new Ticket(1, 5682.35, "VKO", "SIP", 286);
     private Ticket tik2 = new Ticket(2, 5850.89, "DME", "AER", 268);
     private Ticket tik3 = new Ticket(3, 4235.34, "SVO", "MMK", 256);
@@ -17,58 +17,59 @@ class MenagerTest {
 
     @BeforeEach
     public void before() {
-        menager.save(tik1);
-        menager.save(tik2);
-        menager.save(tik3);
-        menager.save(tik4);
+        manager.save(tik1);
+        manager.save(tik2);
+        manager.save(tik3);
+        manager.save(tik4);
     }
 
     @Test
     void searchByFrom_() {
         Ticket[] expented = new Ticket[]{tik2};
-        Ticket[] actual = menager.searchBy("DME", "");
+        Ticket[] actual = manager.searchBy("DME", "");
         assertArrayEquals(expented, actual);
     }
 
     @Test
     void searchByFromOf() {
         Ticket[] expented = new Ticket[]{tik4, tik1};
-        Ticket[] actual = menager.searchBy("BKA", "SIP");
+        Ticket[] actual = manager.searchBy("BKA", "SIP");
         assertArrayEquals(expented, actual);
     }
 
     @Test
     void searchBy_Of() {
         Ticket[] expented = new Ticket[]{tik1};
-        Ticket[] actual = menager.searchBy("", "SIP");
+        Ticket[] actual = manager.searchBy("", "SIP");
         assertArrayEquals(expented, actual);
     }
 
     @Test
     void searchByOfFrom() {
         Ticket[] expented = new Ticket[]{};
-        Ticket[] actual = menager.searchBy("AER", "BKA");
+        Ticket[] actual = manager.searchBy("AER", "BKA");
         assertArrayEquals(expented, actual);
     }
 
     @Test
     void searchBy__() {
         Ticket[] expented = new Ticket[]{};
-        Ticket[] actual = menager.searchBy("", "");
+        Ticket[] actual = manager.searchBy("", "");
         assertArrayEquals(expented, actual);
     }
 
     @Test
     void searchByFromOfOf() {
         Ticket[] expented = new Ticket[]{tik4, tik3, tik2};
-        Ticket[] actual = menager.searchBy("DME", "MMK");
+        Ticket[] actual = manager.searchBy("DME", "MMK");
         assertArrayEquals(expented, actual);
     }
 
     @Test
     void searchByFromOfOfComp() {
+        Ticket ticket = new Ticket();
         Ticket[] expented = new Ticket[]{tik3, tik2, tik4};
-        Ticket[] actual = menager.findAll("DME", "MMK", Comparator.comparing(Ticket::getTravelTime));
+        Ticket[] actual = manager.findAll("DME", "MMK", Comparator.comparingInt(Ticket::getTravelTime));
         assertArrayEquals(expented, actual);
     }
 }
