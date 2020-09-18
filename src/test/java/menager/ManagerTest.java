@@ -65,11 +65,27 @@ class ManagerTest {
         assertArrayEquals(expented, actual);
     }
 
+    Comparator<Ticket> ticketComparator = new Comparator<Ticket>() {
+        @Override
+        public int compare(Ticket o1, Ticket o2) {
+            return o1.getTravelTime() - (o2.getTravelTime());
+        }
+    };
+
     @Test
-    void searchByFromOfOfComp() {
+    void searchByFromOfOfComp_1() {
         Ticket ticket = new Ticket();
         Ticket[] expented = new Ticket[]{tik3, tik2, tik4};
-        Ticket[] actual = manager.findAll("DME", "MMK", Comparator.comparingInt(Ticket::getTravelTime));
+        Ticket[] actual = manager.findAll("DME", "MMK", ticketComparator);
         assertArrayEquals(expented, actual);
     }
+
+    @Test
+    void searchByFromOfOfComp_2() {
+        Ticket ticket = new Ticket();
+        Ticket[] expented = new Ticket[]{tik3, tik2, tik4};
+        Ticket[] actual = manager.findAll("DME", "MMK");
+        assertArrayEquals(expented, actual);
+    }
+
 }
